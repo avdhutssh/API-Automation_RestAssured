@@ -3,6 +3,7 @@
 .settings/
 *.png
 *.gif
+
 *.html
 *.css
 *.iml
