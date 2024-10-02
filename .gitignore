@@ -1,0 +1,11 @@
+.classpath
+.project
+.settings/
+*.png
+*.gif
+*.html
+*.css
+*.iml
+target/
+test-output/
+.idea/
