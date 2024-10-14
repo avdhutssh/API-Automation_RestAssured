@@ -179,5 +179,34 @@ public class e2eStandalone extends BaseTest{
 	}
 
 
+	@Test
+	public void updateStudentUsingPOJO(){
+
+		StudentClass student = new StudentClass();
+		Faker randomData = new Faker();
+
+		List<String>  courses = new ArrayList<>();
+		courses.add("Java");
+		courses.add("Rest Assured");
+		student.setFirstName("Oscar");
+		student.setLastName("Barclay");
+		student.setEmail("testAvPut"+ randomData.internet().emailAddress());
+		student.setProgramme("Computer Science");
+		student.setCourses(courses);
+
+		String response = given()
+				.log().all()
+				.when()
+				.contentType(ContentType.JSON)
+				.body(student)
+				.put("/101")
+				.then()
+				.statusCode(200)
+				.extract()
+				.asString();
+
+		System.out.println(response);
+	}
+	
 }
 	
