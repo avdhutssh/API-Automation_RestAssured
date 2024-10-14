@@ -106,5 +106,19 @@ public class e2eStandalone extends BaseTest{
 
 	}
 
+	@Test
+	public void getSpecificStudentsInfoUsingPathParameter(){
+
+		Response response = given()
+				.pathParam("id", 3)
+				.expect()
+				.statusCode(200)
+				.when()
+				.get("http://localhost:8085/student/{id}");
+
+		response.prettyPrint();
+
+	}
+
 }
 	
