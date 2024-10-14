@@ -73,5 +73,21 @@ public class e2eStandalone extends BaseTest{
 
 	}
 
+	@Test
+	public void getStudentsInfoUsingQueryParameter_Way2_AllInOne(){
+		String response = given()
+				.queryParams("programme", "Computer Science", "limit", 1)
+				.expect()
+				.statusCode(200)
+				.when()
+				.get("http://localhost:8085/student/list")
+				.then()
+				.extract()
+				.asString();
+
+		System.out.println(response);
+
+	}
+
 }
 	
