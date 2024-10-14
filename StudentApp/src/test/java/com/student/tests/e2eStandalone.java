@@ -51,6 +51,27 @@ public class e2eStandalone extends BaseTest{
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 	}
 
+	@Test
+	public void getStudentsInfoUsingQueryParameter_Way1(){
+		String response = given()
+				.queryParam("programme", "Computer Science")
+				.queryParam("limit", 1)
+				.when()
+				.get("http://localhost:8085/student/list")
+				.then()
+				.statusCode(200)
+				.statusLine("HTTP/1.1 200 ")
+				.body("[0].firstName", equalTo("Reece"))  //Assertion
+				.extract()
+				.asString();
+
+		System.out.println(response);
+
+		JsonPath jp = new JsonPath(response);
+		String name = jp.get("[0].firstName");
+		System.out.println(name);
+
+	}
 
 }
 	
