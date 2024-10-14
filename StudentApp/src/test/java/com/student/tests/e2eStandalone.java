@@ -89,5 +89,22 @@ public class e2eStandalone extends BaseTest{
 
 	}
 
+	@Test
+	public void getStudentsInfoUsingQueryParameter_Way3_Using_Map(){
+
+		Map<String,Object> hm = new HashMap<>();
+		hm.put("programme", "Computer Science");
+		hm.put("limit",1);
+		Response response = given()
+				.queryParams(hm)
+				.expect()
+				.statusCode(200)
+				.when()
+				.get("http://localhost:8085/student/list");
+
+		response.prettyPrint();
+
+	}
+
 }
 	
