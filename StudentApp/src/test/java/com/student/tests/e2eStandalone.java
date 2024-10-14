@@ -120,5 +120,33 @@ public class e2eStandalone extends BaseTest{
 
 	}
 
+	@Test
+	public void createNewStudentUsingStaticPayload(){
+
+		String requestPayload = "{\n" +
+				"    \"firstName\": \"hkkjj\",\n" +
+				"    \"lastName\": \"jjljl\",\n" +
+				"    \"email\": \"test1234@gmail.com\",\n" +
+				"    \"programme\": \"Computer Science\",\n" +
+				"    \"courses\": [\n" +
+				"        \"Java\",\n" +
+				"        \"RestAssured\"\n" +
+				"    ]\n" +
+				"}";
+
+		String response = given()
+				.log().all()
+				.when()
+				.contentType(ContentType.JSON)
+				.body(requestPayload)
+				.post()
+				.then()
+				.statusCode(201)
+				.extract()
+				.asString();
+
+		System.out.println(response);
+	}
+
 }
 	
