@@ -207,6 +207,29 @@ public class e2eStandalone extends BaseTest{
 
 		System.out.println(response);
 	}
-	
+
+	@Test
+	public void updateStudentEmailUsingPOJO(){
+
+		StudentClass student = new StudentClass();
+		Faker randomData = new Faker();
+
+		String dummyEmail = "testAvPatch"+ randomData.internet().emailAddress();
+		student.setEmail(dummyEmail);
+
+		given()
+				.log().all()
+				.when()
+				.contentType(ContentType.JSON)
+				.body(student)
+				.patch("/101")
+				.then()
+				.statusCode(200)
+				.log().body()
+				.extract()
+				.path("email", String.valueOf(equalTo(dummyEmail))); //Assertion
+
+	}
+
 }
 	
