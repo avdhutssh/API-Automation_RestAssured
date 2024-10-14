@@ -13,18 +13,6 @@ import static org.hamcrest.Matchers.lessThan;
 
 public class SpecificationFactory extends BaseTest {
 
-//    public static ResponseSpecification verifyStatusCodeAndGiveStringResponse(int StatusCode) {
-//
-//        ResponseSpecBuilder responseSpecBuilder = new ResponseSpecBuilder();
-//        responseSpecBuilder.expectHeader("Content-Type", "application/json;charset=UTF-8");
-//        responseSpecBuilder.expectHeader("Transfer-Encoding", "chunked");
-//        responseSpecBuilder.expectStatusCode(StatusCode);
-//
-//        ResponseSpecification responseSpecification = responseSpecBuilder.build();
-//        return responseSpecification;
-//    }
-
-
     public static ResponseSpecification getGenericResponseSpec() {
 
         ResponseSpecBuilder responseSpecBuilder = new ResponseSpecBuilder();
