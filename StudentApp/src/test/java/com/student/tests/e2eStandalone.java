@@ -231,5 +231,31 @@ public class e2eStandalone extends BaseTest{
 
 	}
 
+	@Test
+	public void deleteStudent(){
+		String response1 = given()
+				.when()
+				.get("/list")
+				.then()
+				.extract()
+				.response()
+				.asString();
+		System.out.println(response1);
+		JsonPath jp1 = new JsonPath(response1);
+		int lastId = jp1.get("[-1].id");
+		System.out.println("last Id is: "+lastId);
+
+		String response = given()
+				.log().all()
+				.when()
+				.contentType(ContentType.JSON)
+				.delete("/"+lastId)
+				.then()
+				.statusCode(204)
+				.extract()
+				.asString();
+
+		System.out.println(response);
+	}
 }
 	
