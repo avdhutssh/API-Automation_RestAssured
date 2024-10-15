@@ -80,6 +80,7 @@ public class RestClient extends BaseTest {
     public Response doPutRequest(String uri, Object body) {
 
         Response response = given()
+                .contentType(ContentType.JSON)
                 .when()
                 .body(body)
                 .put(uri);
@@ -96,6 +97,7 @@ public class RestClient extends BaseTest {
     public Response doPatchRequest(String uri, Object body) {
 
         Response response = given()
+                .contentType(ContentType.JSON)
                 .when()
                 .body(body)
                 .patch(uri);
