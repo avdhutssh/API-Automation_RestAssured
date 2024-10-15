@@ -33,7 +33,7 @@ public class RequestFactory extends BaseTest {
 
 
     @Step("Updating student information with studentId: {0}, firstName: {1}, lastName: {2}, email: {3}, programme: {4}, courses: {5}")
-    public Response updateStudent(int studentid, String firstName,
+    public Response updateStudent(String studentid, String firstName,
                                   String lastName, String email, String programme,
                                   List<String> courses) {
 
@@ -48,23 +48,23 @@ public class RequestFactory extends BaseTest {
 
     }
 
-    @Step("Updating student information with email: {0}")
-    public Response updateStudentEmailAddress(String url, String email) {
+    @Step("Updating student information with Student_Id: {0}, email: {1}")
+    public Response updateStudentEmailAddress(String studentId, String email) {
 
         StudentClass student = new StudentClass();
         student.setEmail(email);
-        return restClient.doPatchRequest(url, student);
+        return restClient.doPatchRequest("/" + studentId, student);
 
     }
 
     @Step("Deleting student info with Id: {0}")
-    public Response deleteStudent(int studentId) {
+    public Response deleteStudent(String studentId) {
 
         return restClient.doDeleteRequest("/" + studentId);
 
     }
 
-    public Response getStudentById(int studentId) {
+    public Response getStudentById(String studentId) {
 
         return restClient.doGetRequest("/" + studentId);
 
