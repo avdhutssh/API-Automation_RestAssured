@@ -55,4 +55,16 @@ public class _02_Given_When_Then {
                 .body("findAll{it.programme=='Financial Analysis'}.size()", equalTo(10));
     }
 
+    @DisplayName("Validate complex JSON path expressions")
+    @Test
+    void _03_validateComplexJsonPath() {
+        RestAssured.given()
+                .when()
+                .get("/list")
+                .then()
+                .statusCode(200)
+                .log()
+                .all()
+                .body("[0].email", matchesPattern("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$"));
+    }
 }
