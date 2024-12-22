@@ -6,8 +6,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
+
 import static org.hamcrest.Matchers.*;
-import static io.restassured.module.jsv.JsonSchemaValidator.*;
 
 public class _02_Given_When_Then {
 
@@ -67,4 +70,18 @@ public class _02_Given_When_Then {
                 .all()
                 .body("[0].email", matchesPattern("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$"));
     }
+
+    @DisplayName("Validate error response for invalid endpoint")
+    @Test
+    void _04_validateErrorResponse() {
+        RestAssured.given()
+                .log().all()
+                .when()
+                .get("/invalid")
+                .then()
+                .log().all()
+                .statusCode(400);
+    }
+
+
 }
