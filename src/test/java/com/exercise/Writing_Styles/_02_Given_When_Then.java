@@ -83,5 +83,20 @@ public class _02_Given_When_Then {
                 .statusCode(400);
     }
 
+    @DisplayName("Extract and validate response data")
+    @Test
+    void _05_extractAndValidateResponse() {
+        List<String> firstnames = RestAssured.given()
+                .when()
+                .get("/list")
+                .then()
+                .statusCode(200)
+                .log()
+                .all()
+                .extract()
+                .path("firstName");
+
+        assertEquals(firstnames.get(0), "Vernon");
+    }
 
 }
