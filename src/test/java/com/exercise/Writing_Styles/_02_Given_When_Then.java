@@ -99,4 +99,22 @@ public class _02_Given_When_Then {
         assertEquals(firstnames.get(0), "Vernon");
     }
 
+    @DisplayName("Validate using root path")
+    @Test
+    void _06_validateUsingRootPath() {
+        RestAssured.given()
+                .when()
+                .get("/list")
+                .then()
+                .statusCode(200)
+                .log()
+                .all()
+                .rootPath("[0]")
+                .body("firstName", equalTo("Vernon"))
+                .body("lastName", equalTo("Harper"))
+                .body("programme", equalTo("Financial Analysis"))
+                .body("courses.flatten()", hasItems("Accounting", "Statistics"));
+        ;
+
+    }
 }
