@@ -22,7 +22,7 @@ public class _02_Given_When_Then {
 
     @DisplayName("Basic validation of first student details")
     @Test
-    void _02_validateFirstStudent() {
+    void _01_validateFirstStudent() {
         RestAssured.given()
                 .log()
                 .all()
