@@ -1,12 +1,13 @@
 package com.exercise.Writing_Styles;
 
 import io.restassured.RestAssured;
+import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.specification.ResponseSpecification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
 
@@ -38,4 +39,20 @@ public class _03_Given_Expect_When {
                 .get("/list");
     }
 
+    @DisplayName("Validate multiple fields using expect")
+    @Test
+    void _02_validateMultipleFields() {
+        RestAssured.given()
+                .log().all()
+                .expect()
+                .statusCode(200)
+                .body("[0].firstName", equalTo("Vernon"))
+                .body("[0].lastName", equalTo("Harper"))
+                .body("[0].programme", equalTo("Financial Analysis"))
+                .body("[0].courses", hasItems("Accounting", "Statistics"))
+                .when()
+                .get("/list");
+    }
+
 }
+
