@@ -54,5 +54,21 @@ public class _03_Given_Expect_When {
                 .get("/list");
     }
 
+    @DisplayName("Complex JSON path validations")
+    @Test
+    void _03_complexJsonPathValidations() {
+        RestAssured.given()
+                .expect()
+                .statusCode(200)
+                .body("findAll{it.programme=='Financial Analysis'}.size()", equalTo(10))
+                .body("findAll{it.courses.contains('Accounting')}.firstName", hasItems("Vernon"))
+                .body("findAll{it.email != null}.size()", equalTo(100))
+                .body("email.size()", equalTo(100))
+                .body("email", hasSize(equalTo(100)))
+                .body("[0].email", matchesPattern("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$"))
+                .when()
+                .get("/list");
+    }
+
 }
 
