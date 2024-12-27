@@ -70,5 +70,20 @@ public class _03_Given_Expect_When {
                 .get("/list");
     }
 
+    @DisplayName("Validate array properties")
+    @Test
+    void _04_validateArrayProperties() {
+        RestAssured.given()
+                .expect()
+                .statusCode(200)
+                .body("size()", greaterThan(1))
+                .body("firstName", hasSize(greaterThan(1)))
+                .body("courses.flatten()", hasItems("Accounting", "Statistics"))
+                .body("courses.flatten()", hasItems("Accounting"))
+                .body("courses.flatten().unique()", hasItems("Accounting", "Statistics"))
+                .body("courses.flatten().size()", greaterThan(10))
+                .body("courses.flatten().unique().size()", greaterThan(2))
+                .when()
+                .get("/list");
+    }
 }
-
