@@ -1,4 +1,4 @@
-package com.exercise.Writing_Styles;
+package com.package com.exercise.Writing_Styles;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -86,4 +86,16 @@ public class _03_Given_Expect_When {
                 .when()
                 .get("/list");
     }
-}
+
+    @DisplayName("Validate with parameters")
+    @Test
+    void _05_validateWithParameters() {
+        RestAssured.given()
+                .param("programme", "Financial Analysis")
+                .expect()
+                .statusCode(200)
+                .body("findAll{it.programme=='Financial Analysis'}.size()", greaterThan(5))
+                .when()
+                .get("/list");
+    }
+}￼Enter
