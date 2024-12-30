@@ -1,4 +1,4 @@
-package com.package com.exercise.Writing_Styles;
+package com.exercise.Writing_Styles;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -98,4 +98,14 @@ public class _03_Given_Expect_When {
                 .when()
                 .get("/list");
     }
-}￼Enter
+
+    @DisplayName("Validate error scenarios")
+    @Test
+    void _06_validateErrorScenarios() {
+        RestAssured.given()
+                .expect()
+                .statusCode(400)
+                .when()
+                .get("/invalid");
+    }
+}
