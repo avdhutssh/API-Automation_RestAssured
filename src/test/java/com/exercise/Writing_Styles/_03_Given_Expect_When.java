@@ -108,4 +108,19 @@ public class _03_Given_Expect_When {
                 .when()
                 .get("/invalid");
     }
+    
+    @DisplayName("Validate with root path")
+    @Test
+    void _07_validateWithRootPath() {
+        RestAssured.given()
+                .log().all()
+                .expect()
+                .statusCode(200)
+                .root("[0]")
+                .body("firstName", equalTo("Vernon"))
+                .body("lastName", equalTo("Harper"))
+                .body("programme", equalTo("Financial Analysis"))
+                .when()
+                .get("/list");
+    }
 }
