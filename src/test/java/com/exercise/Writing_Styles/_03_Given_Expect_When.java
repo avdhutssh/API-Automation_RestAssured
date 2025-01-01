@@ -108,7 +108,7 @@ public class _03_Given_Expect_When {
                 .when()
                 .get("/invalid");
     }
-    
+
     @DisplayName("Validate with root path")
     @Test
     void _07_validateWithRootPath() {
@@ -123,4 +123,28 @@ public class _03_Given_Expect_When {
                 .when()
                 .get("/list");
     }
+
+    @DisplayName("Validate with response spec")
+    @Test
+    void _08_validateWithResponseSpec() {
+        ResponseSpecBuilder responseSpecBuilder = new ResponseSpecBuilder();
+        ResponseSpecification responseSpec = responseSpecBuilder.expectStatusCode(200)
+                .expectHeader("Content-Type", "application/json;charset=UTF-8")
+                .expectHeader("Transfer-Encoding", "chunked")
+                .expectContentType(ContentType.JSON)
+                .expectResponseTime(lessThan(3000L))
+                .expectBody("size()", greaterThan(99))
+                .build();
+
+        RestAssured.given()
+                .log().all()
+                .expect()
+                .spec(responseSpec)
+                .body("[0].firstName", equalTo("Vernon"))
+                .body("findAll{it.courses.contains('Accounting')}.firstName", hasItems("Vernon"))
+                .body("[0].courses", hasItems("Accounting", "Statistics"))
+                .when()
+                .get("/list");
+    }
+
 }
