@@ -1,4 +1,4 @@
-package com.exercise.Writing_Styles;
+package com.exercise._01_Writing_Styles;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
