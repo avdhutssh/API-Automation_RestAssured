@@ -32,4 +32,18 @@ public class _05_PathParam {
                 .body("firstName", equalTo("Vernon"));
     }
 
+    @DisplayName("Getting student information by Path parameter Using String Formatting")
+    @Test
+    public void _02_PP_StringFormatting() {
+        given()
+                .log()
+                .all()
+                .when()
+                .get("/1")
+                .then()
+                .log()
+                .all()
+                .statusCode(200)
+                .body("firstName", equalTo("Vernon"));
+    }
 }
