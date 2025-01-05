@@ -17,7 +17,8 @@ public class _05_PathParam {
 
     @BeforeAll
     public static void setUp() {
-        RestAssured.baseURI = "http://localhost:8085";
+        RestAssured.baseURI = "http://localhost";
+        RestAssured.port = 8085;
         RestAssured.basePath = "/student";
     }
 
