@@ -28,4 +28,19 @@ public class _06_Logging_Request_Info {
                 .then()
                 .statusCode(200);
     }
+
+    @Description("This test will print out all the request parameters")
+    @Test
+    public void _02_Print_AllRequestParameters() {
+        given()
+                .param("programme", "Computer Science")
+                .param("limit", 1)
+                .log()
+//                .parameters()
+                .params()
+                .when()
+                .get("/list")
+                .then()
+                .statusCode(200);
+    }
 }
