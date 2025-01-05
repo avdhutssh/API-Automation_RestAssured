@@ -1,6 +1,8 @@
 package com.exercise._02_RequestParameters;
 
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -57,6 +59,23 @@ public class _05_PathParam {
         requestPP.put("id", 1);
         given()
                 .pathParams(requestPP)
+                .log()
+                .all()
+                .when()
+                .get("/{id}")
+                .then()
+                .log()
+                .all()
+                .statusCode(200)
+                .body("firstName", equalTo("Vernon"));
+    }
+
+    @DisplayName("Getting student information by using Pre-Defined Path parameter")
+    @Test
+    public void _04_PP_PreDefined() {
+        RequestSpecification requestSpec = new RequestSpecBuilder().addPathParam("id", 1).build();
+        given()
+                .spec(requestSpec)
                 .log()
                 .all()
                 .when()
