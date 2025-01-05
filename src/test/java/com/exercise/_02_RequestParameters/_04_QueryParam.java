@@ -1,4 +1,4 @@
-package com.exercise._02_QueryParameter;
+package com.exercise._02_RequestParameters;
 
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
