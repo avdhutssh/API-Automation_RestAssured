@@ -32,4 +32,20 @@ public class _04_QueryParam {
                 .statusCode(200)
                 .body("size()", equalTo(1));
     }
+
+    @DisplayName("Getting student information using Query parameter All in one")
+    @Test
+    public void _02_QP_AllInOne() {
+        given()
+                .queryParams("programme", "Computer Science", "limit", 1)
+                .log()
+                .all()
+                .when()
+                .get("/list")
+                .then()
+                .log()
+                .all()
+                .statusCode(200)
+                .body("size()", equalTo(1));
+    }
 }
