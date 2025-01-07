@@ -81,7 +81,6 @@ public class _06_Logging_Request_Info {
         System.out.println(response);
     }
 
-
     @Description("This test will print out All the Request details")
     @Test
     public void _04_Print_AllRequestDetails() {
@@ -107,6 +106,37 @@ public class _06_Logging_Request_Info {
                 .post()
                 .then()
                 .statusCode(201)
+                .extract()
+                .asString();
+
+        System.out.println(response);
+    }
+
+    @Description("This test will print out All the Request details if validation fails")
+    @Test
+    public void _05_Print_AllRequestDetailsIfValidationFails() {
+        StudentClass student = new StudentClass();
+        Faker randomData = new Faker();
+
+        List<String> courses = new ArrayList<>();
+        courses.add("Java");
+        courses.add("Rest Assured");
+
+        student.setFirstName(randomData.name().firstName());
+        student.setLastName(randomData.name().lastName());
+        student.setEmail(randomData.internet().emailAddress());
+        student.setProgramme("Computer Science");
+        student.setCourses(courses);
+
+        String response = given()
+                .log()
+                .ifValidationFails()
+                .when()
+                .contentType(ContentType.JSON)
+                .body(student)
+                .post()
+                .then()
+                .statusCode(400)
                 .extract()
                 .asString();
 
