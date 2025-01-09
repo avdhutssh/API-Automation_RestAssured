@@ -79,4 +79,16 @@ public class _07_Logging_Response_Info {
                 .log()
                 .body();
     }
+
+    @Description("This test will print out Response in case of an error")
+    @Test
+    public void _02_Print_ResponseInCaseError() {
+        given()
+                .when()
+                .get("/invalid")
+                .then()
+                .log()
+                .ifError()
+                .statusCode(200);
+    }
 }
