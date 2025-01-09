@@ -36,7 +36,6 @@ public class _07_Logging_Response_Info {
                 .headers();
     }
 
-
     @Description("This test will print out Response Status Line")
     @Test
     public void _02_Print_ResponseStatusLine() {
@@ -69,4 +68,15 @@ public class _07_Logging_Response_Info {
         assertEquals("HTTP/1.1 200", statusLine2);
     }
 
+    @Description("This test will print out the Response Body")
+    @Test
+    public void _02_Print_ResponseBody() {
+        given()
+                .when()
+                .get("/list")
+                .then()
+                .statusCode(200)
+                .log()
+                .body();
+    }
 }
