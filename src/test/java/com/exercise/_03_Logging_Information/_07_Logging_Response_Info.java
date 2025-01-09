@@ -1,17 +1,19 @@
 package com.exercise._03_Logging_Information;
 
-import com.github.javafaker.Faker;
-import com.student.pojo.StudentClass;
 import io.qameta.allure.Description;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.hamcrest.Matchers.*;
+import static io.restassured.RestAssured.*;
+
 
 import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class _07_Logging_Response_Info {
 
@@ -32,6 +34,39 @@ public class _07_Logging_Response_Info {
                 .statusCode(200)
                 .log()
                 .headers();
+    }
+
+
+    @Description("This test will print out Response Status Line")
+    @Test
+    public void _02_Print_ResponseStatusLine() {
+        given()
+                .when()
+                .get("/list")
+                .then()
+                .statusCode(200)
+                .log()
+                .status()
+                .statusLine(containsString("HTTP/1.1 200"));
+
+        // Method 1: Using extract()
+        String statusLine1 = given()
+                .when()
+                .get("/list")
+                .then()
+                .statusCode(200)
+                .extract()
+                .statusLine();
+
+        // Method 2: Using response
+        String statusLine2 = given()
+                .when()
+                .get("/list")
+                .getStatusLine()
+                .trim();
+
+        assertTrue(statusLine1.contains("HTTP/1.1 200"));
+        assertEquals("HTTP/1.1 200", statusLine2);
     }
 
 }
