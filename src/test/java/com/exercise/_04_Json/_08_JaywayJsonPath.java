@@ -2,7 +2,10 @@ package com.exercise._04_Json;
 
 import static io.restassured.RestAssured.*;
 
+import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.*;
+
+import java.util.Map;
 
 public class _08_JaywayJsonPath {
 
@@ -20,6 +23,12 @@ public class _08_JaywayJsonPath {
                 .asString();
     }
 
+    static void print(String val) {
+        System.out.println("-----------------------------------");
+        System.out.println(val);
+        System.out.println("-----------------------------------");
+    }
+
     @BeforeEach
     void printToConsoleStrt() {
         System.out.println("-----Starting the test method--------");
@@ -35,7 +44,8 @@ public class _08_JaywayJsonPath {
     @DisplayName("Get the Root Element")
     @Test
     public void getRootElement() {
-        System.out.println(jsonResponse);
+        Map<String, ?> rootElement = JsonPath.read(jsonResponse, "$");
+        print(rootElement.toString());
     }
 
 }
