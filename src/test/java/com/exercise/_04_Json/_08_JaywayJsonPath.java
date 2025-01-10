@@ -74,4 +74,11 @@ public class _08_JaywayJsonPath {
         Map<String, ?> lastDataElement = JsonPath.read(jsonResponse, "$.data[-1]");
         System.out.println(lastDataElement);
     }
+
+    @DisplayName("Get All the Ids")
+    @Test
+    public void getAllIds() {
+        List<String> allIds1 = JsonPath.read(jsonResponse, "$..id");
+        System.out.println(allIds1);
+    }
 }
