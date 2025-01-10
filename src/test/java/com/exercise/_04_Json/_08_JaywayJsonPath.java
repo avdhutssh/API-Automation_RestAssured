@@ -60,4 +60,11 @@ public class _08_JaywayJsonPath {
         List<HashMap<String, Object>> dataElements = JsonPath.read(jsonResponse, "$.data");
         dataElements.stream().forEach(System.out::println);
     }
+
+    @DisplayName("Get first Data Element")
+    @Test
+    public void getFirstDataElement() {
+        Map<String, ?> firstDataElement = JsonPath.read(jsonResponse, "$.data[0]");
+        System.out.println(firstDataElement);
+    }
 }
