@@ -81,4 +81,11 @@ public class _08_JaywayJsonPath {
         List<String> allIds1 = JsonPath.read(jsonResponse, "$..id");
         System.out.println(allIds1);
     }
+
+    @DisplayName("Get The name of the products whose price is less than 5")
+    @Test
+    public void getNameOfProductsWhosePriceisLessThan5() {
+        List<String> itemNames = JsonPath.read(jsonResponse, "$.data[?(@.price<5)].name");
+        itemNames.stream().forEach(System.out::println);
+    }
 }
