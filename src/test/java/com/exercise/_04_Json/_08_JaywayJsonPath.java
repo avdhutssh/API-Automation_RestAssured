@@ -67,4 +67,11 @@ public class _08_JaywayJsonPath {
         Map<String, ?> firstDataElement = JsonPath.read(jsonResponse, "$.data[0]");
         System.out.println(firstDataElement);
     }
+
+    @DisplayName("Get last Data Element")
+    @Test
+    public void getLastDataElement() {
+        Map<String, ?> lastDataElement = JsonPath.read(jsonResponse, "$.data[-1]");
+        System.out.println(lastDataElement);
+    }
 }
