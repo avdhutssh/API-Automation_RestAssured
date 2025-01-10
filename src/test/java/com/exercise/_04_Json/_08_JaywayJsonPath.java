@@ -6,6 +6,8 @@ import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.TestInfo;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class _08_JaywayJsonPath {
@@ -50,5 +52,12 @@ public class _08_JaywayJsonPath {
     public void getTotalFromResponse() {
         int total = JsonPath.read(jsonResponse, "$.total");
         System.out.println(total);
+    }
+
+    @DisplayName("Get all the data elements")
+    @Test
+    public void getAllDataElements() {
+        List<HashMap<String, Object>> dataElements = JsonPath.read(jsonResponse, "$.data");
+        dataElements.stream().forEach(System.out::println);
     }
 }
