@@ -4,6 +4,7 @@ import static io.restassured.RestAssured.*;
 
 import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.TestInfo;
 
 import java.util.Map;
 
@@ -23,21 +24,17 @@ public class _08_JaywayJsonPath {
                 .asString();
     }
 
-    static void print(String val) {
-        System.out.println("-----------------------------------");
-        System.out.println(val);
-        System.out.println("-----------------------------------");
-    }
-
     @BeforeEach
-    void printToConsoleStrt() {
-        System.out.println("-----Starting the test method--------");
+    void printToConsoleStart(TestInfo testInfo) {
+        System.out.println("-----Starting the test method: " + testInfo.getDisplayName() + "--------");
+        // Alternative: use getTestMethod()
         System.out.println("   ");
     }
 
     @AfterEach
-    void printToConsoleEnd() {
-        System.out.println("-----Ending the test method--------");
+    void printToConsoleEnd(TestInfo testInfo) {
+        System.out.println("   ");
+        System.out.println("-----Ending the test method: " + testInfo.getDisplayName() + "--------");
         System.out.println("   ");
     }
 
@@ -45,7 +42,13 @@ public class _08_JaywayJsonPath {
     @Test
     public void getRootElement() {
         Map<String, ?> rootElement = JsonPath.read(jsonResponse, "$");
-        print(rootElement.toString());
+        System.out.println(rootElement);
     }
 
+    @DisplayName("Get the total value from the response")
+    @Test
+    public void getTotalFromResponse() {
+        int total = JsonPath.read(jsonResponse, "$.total");
+        System.out.println(total);
+    }
 }
