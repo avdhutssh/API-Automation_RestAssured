@@ -43,4 +43,10 @@ public class _09_JsonSlurperJsonPath {
         validatableResponse.log().all();
     }
 
+    @DisplayName("Print the total value from the response")
+    @Test
+    public void getTotal() {
+        int total = validatableResponse.extract().path("total");
+        System.out.println(total);
+    }
 }
