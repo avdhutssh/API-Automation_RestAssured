@@ -67,4 +67,12 @@ public class _09_JsonSlurperJsonPath {
         String storeName = validatableResponse.extract().path("data.find{it.zip=='55901'}.name");
         System.out.println(storeName);
     }
+
+    @DisplayName("Get 'address' of store with zip 55901")
+    @Test
+    public void findAddressOfStoreWithZip() {
+        // $.data[?(@.zip=='55901')].address
+        String address = validatableResponse.extract().path("data.find{it.zip == '55901'}.address");
+        System.out.println(address);
+    }
 }
