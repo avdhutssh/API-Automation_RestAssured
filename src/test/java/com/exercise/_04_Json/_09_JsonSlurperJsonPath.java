@@ -1,11 +1,8 @@
 package com.exercise._04_Json;
 
-import com.jayway.jsonpath.JsonPath;
 import io.restassured.response.ValidatableResponse;
 import org.junit.jupiter.api.*;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.*;
@@ -62,5 +59,12 @@ public class _09_JsonSlurperJsonPath {
     public void getFirstServiceNameFromFirstDataElement() {
         String serviceName = validatableResponse.extract().path("data[0].services[0].name");
         System.out.println(serviceName);
+    }
+
+    @DisplayName("Get all the info of store with zip 55901")
+    @Test
+    public void findStoreWithZip() {
+        String storeName = validatableResponse.extract().path("data.find{it.zip=='55901'}.name");
+        System.out.println(storeName);
     }
 }
