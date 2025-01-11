@@ -4,6 +4,7 @@ import io.restassured.response.ValidatableResponse;
 import org.junit.jupiter.api.*;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.*;
@@ -85,5 +86,13 @@ public class _09_JsonSlurperJsonPath {
 
         LinkedHashMap<String, Object> maxID = validatableResponse.extract().path("data.max{it.id}");
         System.out.println(maxID);
+    }
+
+    @DisplayName("Get the all the store zipcodes with ids less than 10")
+    @Test
+    public void getAllStoresWithIdsLessThan10() {
+        //$.data[?(@.id<10)].zip
+        List<String> stores = validatableResponse.extract().path("data.findAll{it.id<10}.zip");
+        System.out.println(stores);
     }
 }
