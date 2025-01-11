@@ -95,4 +95,11 @@ public class _09_JsonSlurperJsonPath {
         List<String> stores = validatableResponse.extract().path("data.findAll{it.id<10}.zip");
         System.out.println(stores);
     }
+
+    @DisplayName("Get all the service name for all the stores")
+    @Test
+    public void getAllServiceNamesInAllStores0() {
+        List<String> serviceNames = validatableResponse.extract().path("data.services.findAll{it.name}.name");
+        System.out.println(serviceNames);
+    }
 }
