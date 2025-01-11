@@ -56,4 +56,11 @@ public class _09_JsonSlurperJsonPath {
         String storeName = validatableResponse.extract().path("data[0].name");
         System.out.println(storeName);
     }
+
+    @DisplayName("Print first 'service name' from the first data element")
+    @Test
+    public void getFirstServiceNameFromFirstDataElement() {
+        String serviceName = validatableResponse.extract().path("data[0].services[0].name");
+        System.out.println(serviceName);
+    }
 }
