@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class XMLPathExample {
     private static String pet_ID;
@@ -67,6 +68,24 @@ public class XMLPathExample {
                 .log()
                 .all()
                 .contentType("application/xml");
+    }
+
+    @Description("Extract and verify pet ID")
+    @Test
+    public void _02_VerifyPetID() {
+        String id = given()
+                .accept("application/xml")
+                .pathParam("petId", pet_ID)
+                .when()
+                .get("/pet/{petId}")
+                .then()
+                .statusCode(200)
+                .extract()
+                .path("Pet.id")
+                .toString();
+
+        System.out.println("Pet ID is : " + id);
+        assertEquals(pet_ID, id, "ID does not match");
     }
 
 //    @Description("Verify status code and content type")
