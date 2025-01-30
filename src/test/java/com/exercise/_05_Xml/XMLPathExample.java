@@ -13,8 +13,6 @@ public class XMLPathExample {
 
     @BeforeAll
     public static void init() {
-//        RestAssured.baseURI = "https://api.weather.gov";
-//        RestAssured.baseURI = "http://webservices.oorsprong.org/websamples.countryinfo";
         RestAssured.baseURI = "https://petstore.swagger.io";
         RestAssured.basePath = "/v2";
         // Create pet and store ID in BeforeClass
@@ -88,6 +86,30 @@ public class XMLPathExample {
         assertEquals(pet_ID, id, "ID does not match");
     }
 
+    @Description("Extract and verify pet Name")
+    @Test
+    public void _03_VerifyPetName() {
+        String petName = given()
+                .accept("application/xml")
+                .pathParam("petId", pet_ID)
+                .when()
+                .get("/pet/{petId}")
+                .then()
+                .statusCode(200)
+                .log()
+                .all()
+                .extract()
+                .path("Pet.name")
+                .toString();
+
+        System.out.println("Pet Name is : " + petName);
+        assertEquals(petName, "doggie", "Name does not match");
+    }
+
+}
+
+//        RestAssured.baseURI = "https://api.weather.gov";
+//        RestAssured.baseURI = "http://webservices.oorsprong.org/websamples.countryinfo";
 //    @Description("Verify status code and content type")
 //    @Test
 //    public void _01_VerifyContentType() {
@@ -123,5 +145,3 @@ public class XMLPathExample {
 //                .all();
 ////                .contentType(containsString("application/xml"));
 //    }
-
-}
