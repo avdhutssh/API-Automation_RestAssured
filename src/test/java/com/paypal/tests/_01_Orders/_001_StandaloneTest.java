@@ -38,8 +38,8 @@ public class _001_StandaloneTest {
 
     private String getAccessToken() {
 
-        String clientId = "AakoaZIu7mjEYIKYAj08dEy0tOqtoxTL-NaWQEYkNRnRVjps_9tszOe3-TNBIoAf0lMLD2XBdFqu2dVj";
-        String clientSecret = "EGdni_joum7RmyeJ6uC1_nLY7zD9BuqDpfjwyxn0zmvXDX5JqDTZ8yetKc-4JAo8tniRRbHCGKpPGx0j";
+        String clientId = "";
+        String clientSecret = "";
 
         Map<String, String> oauthType = new HashMap<>();
         oauthType.put("grant_type", "client_credentials");
