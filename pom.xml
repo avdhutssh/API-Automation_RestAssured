@@ -10,16 +10,20 @@
         <testng.version>7.4.0</testng.version>
         <jsonpath.version>2.9.0</jsonpath.version>
         <json-schema-validator.version>5.5.0</json-schema-validator.version>
-        <jackson-databind.version>2.18.0</jackson-databind.version>
+        <jackson.version>2.18.0</jackson.version>
         <hamcrest.version>3.0</hamcrest.version>
         <jsonassert.version>1.5.3</jsonassert.version>
         <java-faker.version>1.0.1</java-faker.version>
         <junit-dataprovider.version>1.13.1</junit-dataprovider.version>
-        <allure-junit5.version>2.29.0</allure-junit5.version>
-        <allure-rest-assured.version>2.29.0</allure-rest-assured.version>
+        <allure-junit5.version>2.25.0</allure-junit5.version>
+        <allure-rest-assured.version>2.25.0</allure-rest-assured.version>
         <aspectj.version>1.9.4</aspectj.version>
-        <allure-maven.version>2.8.1</allure-maven.version>
-        <allure.version>2.8.1</allure.version>
+        <allure.version>2.25.0</allure.version>
+        <allure-testng.version>2.25.0</allure-testng.version>
+        <lombok.version>1.18.26</lombok.version>
+        <commons-io.version>2.11.0</commons-io.version>
+        <log4j.version>2.20.0</log4j.version>
+        <jaxb.version>2.3.1</jaxb.version>
         <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <encoding>UTF-8</encoding>
@@ -29,11 +33,14 @@
         <project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
-        <group></group>
+        <maven-surefire-plugin.version>3.1.0</maven-surefire-plugin.version>
+        <aspectj.version>1.9.19</aspectj.version>
         <java.version>1.8</java.version>
     </properties>
 
     <dependencies>
+
+        <!-- Testing frameworks -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
@@ -41,9 +48,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>json-schema-validator</artifactId>
-            <version>${json-schema-validator.version}</version>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -59,15 +66,39 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson-databind.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
             <version>${hamcrest.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.tngtech.java</groupId>
+            <artifactId>junit-dataprovider</artifactId>
+            <version>${junit-dataprovider.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JSON  dependencies -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>${json-schema-validator.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>org.skyscreamer</groupId>
@@ -76,15 +107,42 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>${jsonpath.version}</version>
+        </dependency>
+
+        <!-- Java dependencies -->
+        <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>${java-faker.version}</version>
         </dependency>
+
+        <!-- Lombok -->
         <dependency>
-            <groupId>com.tngtech.java</groupId>
-            <artifactId>junit-dataprovider</artifactId>
-            <version>${junit-dataprovider.version}</version>
-            <scope>test</scope>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+        <!-- XML binding dependencies -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+
+        <!-- Allure Reporting -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure.version}</version>
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
@@ -97,16 +155,24 @@
             <artifactId>allure-rest-assured</artifactId>
             <version>${allure-rest-assured.version}</version>
         </dependency>
+
+        <!-- Apache Commons IO -->
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
-            <scope>test</scope>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+
+        <!-- Logging dependencies -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId>
-            <version>${jsonpath.version}</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
     </dependencies>
 
@@ -116,32 +182,15 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M1</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <groups>${group}</groups>
-                    <useSystemClassLoader>false</useSystemClassLoader>
-                    <testFailureIgnore>false</testFailureIgnore>
-
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
-
-                    <properties>
-                        <property>
-                            <name>listener</name>
-                            <value>io.qameta.allure.junit4.AllureJunit4</value>
-                        </property>
-                    </properties>
-
-                    <systemProperties>
-                        <property>
-                            <name>allure.results.directory</name>
-                            <value>${project.build.directory}/allure-results</value>
-                        </property>
-                    </systemProperties>
                 </configuration>
-
-
                 <dependencies>
                     <dependency>
                         <groupId>org.aspectj</groupId>
@@ -149,6 +198,14 @@
                         <version>${aspectj.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.12.0</version>
+                <configuration>
+                    <reportVersion>${allure.version}</reportVersion>
+                </configuration>
             </plugin>
         </plugins>
     </build>
