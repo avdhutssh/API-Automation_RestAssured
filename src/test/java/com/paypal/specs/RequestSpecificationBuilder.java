@@ -31,6 +31,7 @@ public class RequestSpecificationBuilder {
         return new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
                 .addHeader("Authorization", "Bearer " + accessToken)
+                .addHeader("Prefer", "return=representation")
                 .addFilter(new AllureRestAssured())
                 .log(LogDetail.ALL)
                 .build();
