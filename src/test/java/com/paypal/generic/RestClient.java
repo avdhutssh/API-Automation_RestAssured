@@ -16,6 +16,8 @@ public class RestClient {
     private static final Logger log = LogManager.getLogger(RestClient.class);
 
     private static ResponseSpecification respSpecGeneric = ResponseSpecificationBuilder.getGenericResponseSpec();
+    private static ResponseSpecification respSpecNoContentGeneric = ResponseSpecificationBuilder.getGenericResponseNoContentSpec();
+
     private static RequestSpecification reqSpecAuth;
 
     @Step("Execute GET request on {endpoint} with path parameters and authorization token")
@@ -79,7 +81,7 @@ public class RestClient {
                 .when()
                 .patch(endpoint)
                 .then()
-                .spec(respSpecGeneric)
+                .spec(respSpecNoContentGeneric)
                 .extract()
                 .response();
     }
