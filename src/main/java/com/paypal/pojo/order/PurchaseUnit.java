@@ -19,6 +19,7 @@ public class PurchaseUnit {
     private String referenceId;
 
     private Amount amount;
+    private Payee payee;
 
     private List<Item> items;
 
