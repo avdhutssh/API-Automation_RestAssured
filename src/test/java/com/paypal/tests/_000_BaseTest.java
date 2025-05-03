@@ -2,6 +2,7 @@ package com.paypal.tests;
 
 import com.paypal.constants.Endpoints;
 import com.paypal.generic.RequestFactory;
+import com.paypal.pojo.auth.TokenResponse;
 import com.paypal.utils.AllureReportUtils;
 import com.paypal.utils.PropertyReader;
 import io.restassured.RestAssured;
@@ -73,12 +74,13 @@ public class _000_BaseTest {
 
         log.info("Token response status code: {}", response.getStatusCode());
 
+        TokenResponse tokenResponse = response.as(TokenResponse.class);
         if (response.getStatusCode() != 200) {
             log.error("Failed to get access token. Status code: {}", response.getStatusCode());
             log.error("Response body: {}", response.getBody().asString());
             throw new RuntimeException("Failed to get access token. Status code: " + response.getStatusCode());
         }
 
-        return response.jsonPath().getString("access_token");
+        return tokenResponse.getAccessToken();
     }
 }
