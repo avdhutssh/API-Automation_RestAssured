@@ -42,7 +42,7 @@ Before you start, ensure you have the following installed on your machine:
 
 - **Java Development Kit (JDK)**: Version 11 or later
 - **Maven**: To manage project dependencies
-- **Docker**: For running the mock server and service
+- **Docker**: For running the student app
 - **Git**: To clone the repository
 - **An IDE**: (such as IntelliJ IDEA or Eclipse) with TestNG plugin installed
 
@@ -85,8 +85,7 @@ project-root/
 │   │               │       ├── PaymentSource.java        # Source of payment (card, etc.)
 │   │               │       ├── PurchaseUnit.java         # Purchase unit with items and amounts
 │   │               │       └── Shipping.java             # Shipping details for order
-│   │               └── utils/
-│   │                   └── PropertyReader.java           # Utility to read properties files
+│   │               │       └── UnitAmout.java            # Unit Amout details for order
 │   └── test/
 │       ├── java/
 │       │   └── com/
