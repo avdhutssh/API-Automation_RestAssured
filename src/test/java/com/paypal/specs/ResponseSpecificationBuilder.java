@@ -21,6 +21,14 @@ public class ResponseSpecificationBuilder {
                 .build();
     }
 
+    public static ResponseSpecification getGenericResponseNoContentSpec() {
+        log.info("Building generic response specification");
+
+        return new ResponseSpecBuilder()
+                .expectResponseTime(Matchers.lessThan(10000L), TimeUnit.MILLISECONDS)
+                .build();
+    }
+
     public static ResponseSpecification getSuccessResponseSpec() {
         log.info("Building success response specification");
 
