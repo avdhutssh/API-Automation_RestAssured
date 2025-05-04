@@ -1,0 +1,50 @@
+name: REST Assured API Tests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  API-Test:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      
+      - name: Set up Java and Maven
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "11"
+      
+      - name: Install Maven
+        run: choco install maven
+      
+      - name: Run tests with Maven
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        run: mvn clean test
+      
+      - name: Generate Allure Report
+        if: always()
+        run: mvn allure:report
+      
+      - name: Upload Allure Report as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: AllureReport
+          path: target/site/allure-maven-plugin/
