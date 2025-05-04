@@ -57,9 +57,32 @@ public class _000_BaseTest {
     private String getAccessToken() {
         log.info("Fetching access token");
 
-        String clientId = propertyReader.getProperty("client.id");
-        String clientSecret = propertyReader.getProperty("client.secret");
+        String clientId = null;
+        String clientSecret = null;
 
+        clientId = System.getProperty("client.id");
+        clientSecret = System.getProperty("client.secret");
+
+        if (clientId != null && clientSecret != null) {
+            log.info("Using credentials from command line arguments");
+        } else {
+            clientId = System.getenv("CLIENT_ID");
+            clientSecret = System.getenv("CLIENT_SECRET");
+
+            if (clientId != null && clientSecret != null) {
+                log.info("Using credentials from environment variables");
+            } else {
+                clientId = propertyReader.getProperty("client.id");
+                clientSecret = propertyReader.getProperty("client.secret");
+
+                if (clientId != null && clientSecret != null) {
+                    log.info("Using credentials from application.properties");
+                } else {
+                    log.error("No credentials found in any source");
+                    throw new RuntimeException("Authentication credentials not found in any source");
+                }
+            }
+        }
         Map<String, String> formParams = new HashMap<>();
         formParams.put("grant_type", "client_credentials");
 
