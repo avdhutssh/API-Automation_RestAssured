@@ -1,0 +1,47 @@
+name: REST Assured API Tests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  API-Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      
+      - name: Set up Java and Maven
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "11"
+      
+      - name: Run tests with Maven
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        run: mvn clean test
+      
+      - name: Generate Allure Report
+        if: always()
+        run: mvn allure:report
+      
+      - name: Upload Allure Report as artifact
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: AllureReport
+          path: target/site/allure-maven-plugin/
