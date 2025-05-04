@@ -12,3 +12,5 @@ test-output/
 .idea/
 /bin/
 bin/
+allure-results/
+.allure/
