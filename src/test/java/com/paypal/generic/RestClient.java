@@ -2,6 +2,7 @@ package com.paypal.generic;
 
 import com.paypal.specs.RequestSpecificationBuilder;
 import com.paypal.specs.ResponseSpecificationBuilder;
+import com.paypal.utils.AllureReportUtils;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -25,7 +26,10 @@ public class RestClient {
         log.info("Executing GET request on endpoint: {} with path params: {} and token", endpoint, pathParams);
         reqSpecAuth = RequestSpecificationBuilder.getAuthenticatedRequestSpec(accessToken);
 
-        return RestAssured.given()
+        AllureReportUtils.logStep("GET request to: " + endpoint);
+        AllureReportUtils.logRequest(endpoint, pathParams);
+
+        Response response = RestAssured.given()
                 .spec(reqSpecAuth)
                 .pathParams(pathParams)
                 .when()
@@ -34,6 +38,10 @@ public class RestClient {
                 .spec(respSpecGeneric)
                 .extract()
                 .response();
+
+        AllureReportUtils.logResponse(response);
+
+        return response;
     }
 
     @Step("Execute POST request on {endpoint} with authorization token")
@@ -41,7 +49,10 @@ public class RestClient {
         log.info("Executing POST request on endpoint: {} with token", endpoint);
         reqSpecAuth = RequestSpecificationBuilder.getAuthenticatedRequestSpec(accessToken);
 
-        return RestAssured.given()
+        AllureReportUtils.logStep("POST request to: " + endpoint);
+        AllureReportUtils.logRequest(endpoint, requestBody);
+
+        Response response = RestAssured.given()
                 .spec(reqSpecAuth)
                 .body(requestBody)
                 .when()
@@ -50,6 +61,10 @@ public class RestClient {
                 .spec(respSpecGeneric)
                 .extract()
                 .response();
+
+        AllureReportUtils.logResponse(response);
+
+        return response;
     }
 
     @Step("Execute POST request on {endpoint} with path parameters and authorization token")
@@ -57,7 +72,10 @@ public class RestClient {
         log.info("Executing POST request on endpoint: {} with path params: {} and token", endpoint, pathParams);
         reqSpecAuth = RequestSpecificationBuilder.getAuthenticatedRequestSpec(accessToken);
 
-        return RestAssured.given()
+        AllureReportUtils.logStep("POST request to: " + endpoint + " with path params: " + pathParams);
+        AllureReportUtils.logRequest(endpoint, requestBody);
+
+        Response response = RestAssured.given()
                 .spec(reqSpecAuth)
                 .body(requestBody)
                 .pathParams(pathParams)
@@ -67,6 +85,10 @@ public class RestClient {
                 .spec(respSpecGeneric)
                 .extract()
                 .response();
+
+        AllureReportUtils.logResponse(response);
+
+        return response;
     }
 
     @Step("Execute PATCH request on {endpoint} with path parameters and authorization token")
@@ -74,7 +96,10 @@ public class RestClient {
         log.info("Executing PATCH request on endpoint: {} with path params: {} and token", endpoint, pathParams);
         reqSpecAuth = RequestSpecificationBuilder.getAuthenticatedRequestSpec(accessToken);
 
-        return RestAssured.given()
+        AllureReportUtils.logStep("PATCH request to: " + endpoint + " with path params: " + pathParams);
+        AllureReportUtils.logRequest(endpoint, requestBody);
+
+        Response response = RestAssured.given()
                 .spec(reqSpecAuth)
                 .body(requestBody)
                 .pathParams(pathParams)
@@ -84,6 +109,10 @@ public class RestClient {
                 .spec(respSpecNoContentGeneric)
                 .extract()
                 .response();
+
+        AllureReportUtils.logResponse(response);
+
+        return response;
     }
 
     @Step("Execute PUT request on {endpoint} with path parameters and authorization token")
@@ -91,7 +120,10 @@ public class RestClient {
         log.info("Executing PUT request on endpoint: {} with path params: {} and token", endpoint, pathParams);
         reqSpecAuth = RequestSpecificationBuilder.getAuthenticatedRequestSpec(accessToken);
 
-        return RestAssured.given()
+        AllureReportUtils.logStep("PUT request to: " + endpoint + " with path params: " + pathParams);
+        AllureReportUtils.logRequest(endpoint, requestBody);
+
+        Response response = RestAssured.given()
                 .spec(reqSpecAuth)
                 .body(requestBody)
                 .pathParams(pathParams)
@@ -101,6 +133,10 @@ public class RestClient {
                 .spec(respSpecGeneric)
                 .extract()
                 .response();
+
+        AllureReportUtils.logResponse(response);
+
+        return response;
     }
 
     @Step("Execute DELETE request on {endpoint} with path parameters and authorization token")
@@ -108,7 +144,10 @@ public class RestClient {
         log.info("Executing DELETE request on endpoint: {} with path params: {} and token", endpoint, pathParams);
         reqSpecAuth = RequestSpecificationBuilder.getAuthenticatedRequestSpec(accessToken);
 
-        return RestAssured.given()
+        AllureReportUtils.logStep("DELETE request to: " + endpoint + " with path params: " + pathParams);
+        AllureReportUtils.logRequest(endpoint, pathParams);
+
+        Response response = RestAssured.given()
                 .spec(reqSpecAuth)
                 .pathParams(pathParams)
                 .when()
@@ -117,5 +156,9 @@ public class RestClient {
                 .spec(respSpecGeneric)
                 .extract()
                 .response();
+
+        AllureReportUtils.logResponse(response);
+
+        return response;
     }
 }
